@@ -1,68 +1,140 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+@import "tailwindcss";
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@theme {
+  --color-nier-bg: #dad4bb;
+  --color-nier-bg-dark: #c4bea5;
+  --color-nier-text: #454138;
+  --color-nier-accent: #8b0000;
+  --color-nier-border: #57534e;
+  --color-nier-hover: #3d3a33;
+  --font-nier: "Rajdhani", "Segoe UI", sans-serif;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+@layer base {
+  * {
+    cursor: none;
   }
-  a:hover {
-    color: #747bff;
+
+  ::selection {
+    background-color: var(--color-nier-accent);
+    color: var(--color-nier-bg);
   }
-  button {
-    background-color: #f9f9f9;
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-nier-bg text-nier-text font-nier antialiased;
+    margin: 0;
+    min-height: 100vh;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-bold tracking-wider uppercase;
+  }
+}
+
+@layer components {
+  .nier-container {
+    @apply relative border-2 border-nier-border bg-nier-bg;
+    clip-path: polygon(
+      0 10px,
+      10px 0,
+      100% 0,
+      100% calc(100% - 10px),
+      calc(100% - 10px) 100%,
+      0 100%
+    );
+  }
+
+  .nier-container::before {
+    content: "";
+    @apply absolute top-0 left-0 w-full h-full pointer-events-none;
+    background: linear-gradient(
+      135deg,
+      transparent 0%,
+      rgba(0, 0, 0, 0.02) 50%,
+      transparent 100%
+    );
+  }
+
+  .nier-button {
+    @apply relative px-6 py-3 bg-nier-bg border-2 border-nier-border text-nier-text font-nier uppercase tracking-widest text-sm transition-all duration-200;
+    clip-path: polygon(
+      0 5px,
+      5px 0,
+      100% 0,
+      100% calc(100% - 5px),
+      calc(100% - 5px) 100%,
+      0 100%
+    );
+  }
+
+  .nier-button:hover {
+    @apply bg-nier-hover text-nier-bg;
+  }
+
+  .nier-line {
+    @apply h-px bg-nier-border;
+  }
+
+  .nier-title {
+    @apply relative inline-block;
+  }
+
+  .nier-title::before,
+  .nier-title::after {
+    content: "";
+    @apply absolute top-1/2 w-8 h-px bg-nier-border;
+  }
+
+  .nier-title::before {
+    @apply right-full mr-4;
+  }
+
+  .nier-title::after {
+    @apply left-full ml-4;
+  }
+
+  .glitch {
+    animation: glitch 2s infinite;
+  }
+
+  @keyframes glitch {
+    0%,
+    90%,
+    100% {
+      transform: translate(0);
+      filter: none;
+    }
+    91% {
+      transform: translate(-2px, 1px);
+      filter: hue-rotate(90deg);
+    }
+    92% {
+      transform: translate(2px, -1px);
+      filter: hue-rotate(-90deg);
+    }
+    93% {
+      transform: translate(0);
+      filter: none;
+    }
+  }
+
+  .scanlines {
+    @apply pointer-events-none fixed inset-0 z-50;
+    background: repeating-linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.03),
+      rgba(0, 0, 0, 0.03) 1px,
+      transparent 1px,
+      transparent 2px
+    );
   }
 }
