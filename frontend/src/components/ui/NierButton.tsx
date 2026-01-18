@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { useSoundContext } from '../../context/SoundContext';
+import { useTheme } from '../../context/ThemeContext';
 import type { ReactNode } from 'react';
 
 interface NierButtonProps {
@@ -12,13 +13,19 @@ interface NierButtonProps {
 
 export const NierButton = ({ children, onClick, href, variant = 'primary', className = '' }: NierButtonProps) => {
   const { playHover, playClick } = useSoundContext();
+  const { isDark } = useTheme();
 
   const baseStyles = `
     relative px-8 py-4 font-nier uppercase tracking-widest text-sm
     border-2 transition-all duration-200
-    ${variant === 'primary' 
-      ? 'bg-nier-bg border-nier-border text-nier-text hover:bg-nier-hover hover:text-nier-bg' 
-      : 'bg-transparent border-nier-border text-nier-text hover:bg-nier-bg-dark'}
+    ${isDark 
+      ? (variant === 'primary' 
+        ? 'bg-nier-dark-bg border-nier-dark-border text-nier-dark-text hover:bg-nier-dark-text hover:text-nier-dark-bg' 
+        : 'bg-transparent border-nier-dark-border text-nier-dark-text hover:bg-nier-dark-bg-dark')
+      : (variant === 'primary' 
+        ? 'bg-nier-bg border-nier-border text-nier-text hover:bg-nier-hover hover:text-nier-bg' 
+        : 'bg-transparent border-nier-border text-nier-text hover:bg-nier-bg-dark')
+    }
   `;
 
   const clipPath = {

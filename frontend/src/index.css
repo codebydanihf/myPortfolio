@@ -7,6 +7,11 @@
   --color-nier-accent: #8b0000;
   --color-nier-border: #57534e;
   --color-nier-hover: #3d3a33;
+  --color-nier-dark-bg: #1a1a1a;
+  --color-nier-dark-bg-dark: #252525;
+  --color-nier-dark-text: #dad4bb;
+  --color-nier-dark-border: #4a4a4a;
+  --color-nier-dark-hover: #dad4bb;
   --font-nier: "Rajdhani", "Segoe UI", sans-serif;
 }
 
@@ -28,6 +33,12 @@
     @apply bg-nier-bg text-nier-text font-nier antialiased;
     margin: 0;
     min-height: 100vh;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  .dark body,
+  html.dark body {
+    @apply bg-nier-dark-bg text-nier-dark-text;
   }
 
   h1,

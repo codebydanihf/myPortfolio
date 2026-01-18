@@ -3,6 +3,7 @@ import { ExternalLink, Github } from 'lucide-react';
 import { NierContainer } from '../ui/NierContainer';
 import { SectionTitle } from '../ui/SectionTitle';
 import { useSoundContext } from '../../context/SoundContext';
+import { useTheme } from '../../context/ThemeContext';
 
 interface Project {
   id: number;
@@ -17,37 +18,15 @@ interface Project {
 const projects: Project[] = [
   {
     id: 1,
-    title: 'Project Alpha',
-    description: 'A full-stack web application built with React and Node.js. Features real-time updates and a modern UI.',
-    tags: ['React', 'Node.js', 'MongoDB', 'Socket.io'],
+    title: 'Proximamente',
+    description: 'Proximamente',
+    tags: ['...', '...', '...', '...'],
     github: 'https://github.com',
     demo: 'https://example.com',
-  },
-  {
-    id: 2,
-    title: 'Project Beta',
-    description: 'Mobile-first e-commerce platform with payment integration and inventory management system.',
-    tags: ['Next.js', 'Stripe', 'PostgreSQL', 'TailwindCSS'],
-    github: 'https://github.com',
-    demo: 'https://example.com',
-  },
-  {
-    id: 3,
-    title: 'Project Gamma',
-    description: 'AI-powered data visualization dashboard for business analytics and reporting.',
-    tags: ['Python', 'React', 'D3.js', 'FastAPI'],
-    github: 'https://github.com',
-  },
-  {
-    id: 4,
-    title: 'Project Delta',
-    description: 'Open-source CLI tool for automating development workflows and deployments.',
-    tags: ['TypeScript', 'Node.js', 'Docker', 'GitHub Actions'],
-    github: 'https://github.com',
   },
 ];
 
-const ProjectCard = ({ project, index }: { project: Project; index: number }) => {
+const ProjectCard = ({ project, index, isDark }: { project: Project; index: number; isDark: boolean }) => {
   const { playHover, playClick } = useSoundContext();
 
   return (
@@ -57,23 +36,23 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
     >
-      <NierContainer className="h-full group hover:bg-nier-bg-dark/50 transition-colors duration-300">
+      <NierContainer className={`h-full group transition-colors duration-300 ${isDark ? 'bg-nier-dark-bg border-nier-dark-border hover:bg-nier-dark-bg-dark/50' : 'hover:bg-nier-bg-dark/50'}`}>
         <div className="flex flex-col h-full">
-          <div className="aspect-video bg-nier-bg-dark border border-nier-border mb-4 relative overflow-hidden">
-            <div className="absolute inset-0 flex items-center justify-center text-nier-text/20">
+          <div className={`aspect-video border mb-4 relative overflow-hidden ${isDark ? 'bg-nier-dark-bg-dark border-nier-dark-border' : 'bg-nier-bg-dark border-nier-border'}`}>
+            <div className={`absolute inset-0 flex items-center justify-center ${isDark ? 'text-nier-dark-text/20' : 'text-nier-text/20'}`}>
               <span className="text-4xl font-bold tracking-widest">0{project.id}</span>
             </div>
-            <div className="absolute inset-0 bg-gradient-to-t from-nier-bg/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${isDark ? 'bg-gradient-to-t from-nier-dark-bg/80 to-transparent' : 'bg-gradient-to-t from-nier-bg/80 to-transparent'}`} />
           </div>
 
           <div className="flex items-center gap-2 mb-3">
             <div className="w-1.5 h-1.5 bg-nier-accent rotate-45" />
-            <h3 className="text-lg font-bold tracking-wider uppercase text-nier-text">
+            <h3 className={`text-lg font-bold tracking-wider uppercase ${isDark ? 'text-nier-dark-text' : 'text-nier-text'}`}>
               {project.title}
             </h3>
           </div>
 
-          <p className="text-sm text-nier-text/70 leading-relaxed mb-4 flex-grow">
+          <p className={`text-sm leading-relaxed mb-4 flex-grow ${isDark ? 'text-nier-dark-text/70' : 'text-nier-text/70'}`}>
             {project.description}
           </p>
 
@@ -81,14 +60,14 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
             {project.tags.map((tag) => (
               <span
                 key={tag}
-                className="px-2 py-1 text-xs tracking-wider uppercase bg-nier-bg-dark border border-nier-border text-nier-text/80"
+                className={`px-2 py-1 text-xs tracking-wider uppercase border ${isDark ? 'bg-nier-dark-bg-dark border-nier-dark-border text-nier-dark-text/80' : 'bg-nier-bg-dark border-nier-border text-nier-text/80'}`}
               >
                 {tag}
               </span>
             ))}
           </div>
 
-          <div className="flex gap-4 pt-4 border-t border-nier-border/50">
+          <div className={`flex gap-4 pt-4 border-t ${isDark ? 'border-nier-dark-border/50' : 'border-nier-border/50'}`}>
             {project.github && (
               <motion.a
                 href={project.github}
@@ -96,11 +75,11 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
                 rel="noopener noreferrer"
                 onMouseEnter={playHover}
                 onClick={playClick}
-                className="flex items-center gap-2 text-sm text-nier-text/70 hover:text-nier-text transition-colors"
+                className={`flex items-center gap-2 text-sm transition-colors ${isDark ? 'text-nier-dark-text/70 hover:text-nier-dark-text' : 'text-nier-text/70 hover:text-nier-text'}`}
                 whileHover={{ x: 3 }}
               >
                 <Github size={16} />
-                <span className="tracking-wider uppercase">Code</span>
+                <span className="tracking-wider uppercase">Código</span>
               </motion.a>
             )}
             {project.demo && (
@@ -110,7 +89,7 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
                 rel="noopener noreferrer"
                 onMouseEnter={playHover}
                 onClick={playClick}
-                className="flex items-center gap-2 text-sm text-nier-text/70 hover:text-nier-text transition-colors"
+                className={`flex items-center gap-2 text-sm transition-colors ${isDark ? 'text-nier-dark-text/70 hover:text-nier-dark-text' : 'text-nier-text/70 hover:text-nier-text'}`}
                 whileHover={{ x: 3 }}
               >
                 <ExternalLink size={16} />
@@ -125,14 +104,16 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
 };
 
 export const Projects = () => {
+  const { isDark } = useTheme();
+
   return (
     <section id="projects" className="py-24 px-4">
       <div className="max-w-6xl mx-auto">
-        <SectionTitle title="Projects" subtitle="What I've built" />
+        <SectionTitle title="Proyectos" subtitle="Lo que he construido" />
 
         <div className="grid md:grid-cols-2 gap-8">
           {projects.map((project, index) => (
-            <ProjectCard key={project.id} project={project} index={index} />
+            <ProjectCard key={project.id} project={project} index={index} isDark={isDark} />
           ))}
         </div>
       </div>

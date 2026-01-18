@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import { useTheme } from '../../context/ThemeContext';
 
 export const CustomCursor = () => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
   const [isClicking, setIsClicking] = useState(false);
+  const { isDark } = useTheme();
 
   useEffect(() => {
     const updatePosition = (e: MouseEvent) => {
@@ -39,7 +41,7 @@ export const CustomCursor = () => {
   return (
     <>
       <motion.div
-        className="fixed pointer-events-none z-[9999] mix-blend-difference"
+        className="fixed pointer-events-none z-9999 mix-blend-difference"
         animate={{
           x: position.x - 4,
           y: position.y - 4,
@@ -47,11 +49,11 @@ export const CustomCursor = () => {
         }}
         transition={{ type: 'spring', stiffness: 500, damping: 28 }}
       >
-        <div className="w-2 h-2 bg-nier-text rounded-full" />
+        <div className={`w-2 h-2 rounded-full ${isDark ? 'bg-nier-dark-text' : 'bg-nier-text'}`} />
       </motion.div>
 
       <motion.div
-        className="fixed pointer-events-none z-[9998]"
+        className="fixed pointer-events-none z-9998"
         animate={{
           x: position.x - 20,
           y: position.y - 20,
@@ -60,12 +62,12 @@ export const CustomCursor = () => {
         }}
         transition={{ type: 'spring', stiffness: 150, damping: 15 }}
       >
-        <div className="w-10 h-10 border border-nier-border rounded-full" />
+        <div className={`w-10 h-10 border rounded-full ${isDark ? 'border-nier-dark-border' : 'border-nier-border'}`} />
       </motion.div>
 
       {isHovering && (
         <motion.div
-          className="fixed pointer-events-none z-[9997]"
+          className="fixed pointer-events-none z-9997"
           initial={{ opacity: 0, scale: 0.5 }}
           animate={{
             x: position.x - 30,
