@@ -25,7 +25,7 @@ export const About = () => {
               }}
             >
               <img 
-                src="/profile/profile_4.jpeg" 
+                src="profile/profile_4.jpeg" 
                 alt="Daniel - Desarrollador" 
                 className="w-full h-full object-cover"
               />
