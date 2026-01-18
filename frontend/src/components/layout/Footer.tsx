@@ -1,4 +1,4 @@
-import { Github, Linkedin, Mail } from 'lucide-react';
+import { Github, Mail } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useSoundContext } from '../../context/SoundContext';
 import { useTheme } from '../../context/ThemeContext';

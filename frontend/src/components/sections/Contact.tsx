@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Mail, MapPin, Github, Linkedin, Sparkles } from 'lucide-react';
+import { Mail, MapPin, Github, Sparkles } from 'lucide-react';
 import { NierContainer } from '../ui/NierContainer';
 import { SectionTitle } from '../ui/SectionTitle';
 import { useSoundContext } from '../../context/SoundContext';
